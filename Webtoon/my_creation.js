@@ -28,6 +28,7 @@ function AddFav( title, x ) {
 
 class CreationScreen extends React.Component {
   render() {
+    console.disableYellowBox=true;
     return (
       <Container style={{backgroundColor:''}}>
       <Content>

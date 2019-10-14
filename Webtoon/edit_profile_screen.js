@@ -1,12 +1,26 @@
 import React from 'react';
 import { View, Text, StyleSheet, Alert } from 'react-native';
-import { Container, Input, Item, Button, Icon, Right } from 'native-base';
+import { Container, Input, Item, Button, Icon, Right, Label } from 'native-base';
 
 
 
-class ProfileScreen extends React.Component {
+class EditProfile extends React.Component {
+
+
+  constructor(props) {
+    
+    super(props)
+ 
+    this.state = {
+      Holder: ''
+    }
+ 
+  }
 
   render() {
+    console.disableYellowBox=true;
+    const { navigation } = this.props;
+    const user = (navigation.getParam('user', 'Anonym'));
 
     return (
 
@@ -17,7 +31,7 @@ class ProfileScreen extends React.Component {
           </View>
           <View style={{alignItems:'center'}}>
           <Item rounded style={styles.input}>
-            <Input placeholder='YOUR NAME'/>
+          <Input placeholder={user} onChangeText={(text)=>{this.setState({Holder:text})}} value={this.state.Holder}/>
             </Item>
           </View>
         </View>
@@ -65,4 +79,4 @@ const styles = StyleSheet.create({
 })
 
 
-export default ProfileScreen;
+export default EditProfile;

@@ -1,37 +1,53 @@
 import React from 'react';
 import { View, Text, StyleSheet, Alert, TouchableOpacity} from 'react-native';
-import { Container, Input, Item, Button, Icon, Right, Header, Left } from 'native-base';
+import { Container, Input, Item, Button, Icon, Right, Header, Left, Card, CardItem, Body } from 'native-base';
 
+const user = 'Khairunnas'
 
 
 class ProfileScreen extends React.Component {
 
   render() {
-
+    console.disableYellowBox=true;
     return (
 
-      <Container>
+      <Container style={{backgroundColor:''}}>
         <View style={styles.content}>
           <Header style={{backgroundColor:'#f64747'}}>
-          <Left><Text style={{color:'white', fontSize:20}}>Profile</Text></Left>
-          <Right><Icon style={{color:'white'}} onPress={() => this.props.navigation.navigate('EditProfile')} name='create'/></Right>
+              <Left><Text style={{color:'white', fontSize:20}}>Profile</Text></Left>
+              <Right><Icon style={{color:'white'}} onPress={() => this.props.navigation.navigate('EditProfile', {
+              user: user,
+              otherParam: 'anything you want here',
+            })} name='create'/></Right>
           </Header>
-          <View style={styles.User}>
-            <Icon name='contact' style={{fontSize:100, color:'#f64747'}}></Icon>
-            <Text style={styles.YourName}>KHAIRUNNAS</Text>
-          </View>
-          <View>
-            <View style={styles.menu1}>
-            <View style={{flex:1, alignItems:'flex-start', justifyContent:'center'}}>
-            <Text onPress={() => this.props.navigation.navigate('MyCreation')}  style={styles.Text}>My Webtoon Creation</Text>
-            </View>
-            <View style={{justifyContent:'center', marginEnd:10}}>
-            <Icon onPress={() => this.props.navigation.navigate('MyCreation')} name='arrow-dropright-circle' style={{color:'white'}} />
-            </View>
-            </View>
-            <View style={styles.menu2}>
-            <Text onPress={() => this.props.navigation.navigate('Login')} style={styles.Text}>Log Out</Text>
-            </View>
+                <View style={styles.User}>
+                  <Icon name='contact' style={{fontSize:100, color:'#f64747'}}></Icon>
+                  <Text style={styles.YourName}>{user}</Text>
+                </View>  
+            <View>        
+            <Card>
+              <CardItem>
+                <Body>
+                  <View style={styles.menu1}>
+                  <View style={{flex:1, alignItems:'flex-start', justifyContent:'center'}}>
+                  <Text onPress={() => this.props.navigation.navigate('MyCreation')}  style={styles.Text}>My Webtoon Creation</Text>
+                  </View>
+                  <View style={{justifyContent:'center', marginEnd:10}}>
+                  <Icon onPress={() => this.props.navigation.navigate('MyCreation')} name='arrow-dropright-circle' style={{color:'red'}} />
+                  </View>
+                  </View>
+                </Body>
+              </CardItem>
+            </Card>
+            <Card>
+              <CardItem>
+                <Body>
+                  <View style={styles.menu2}>
+                  <Text onPress={() => this.props.navigation.navigate('Login')} style={styles.Text}>Log Out</Text>
+                  </View>
+            </Body>
+            </CardItem>
+            </Card>
           </View>
         </View>
       </Container>
@@ -44,20 +60,13 @@ const styles = StyleSheet.create({
     flex : 1,
   },
   menu1: {
-    height: 50,
-    backgroundColor: '#f64747',
-    borderTopWidth:2,
-    borderTopColor:'#f3f1ef',
+    height:20,
     justifyContent:'center',
     flexDirection:'row'
   },
   menu2: {
-    height: 50,
-    backgroundColor: '#f64747',
-    borderTopWidth:2,
-    borderTopColor:'#f3f1ef',
     justifyContent:'center',
-
+    height:20
   },
   User: {
     alignItems: 'center',
@@ -68,7 +77,7 @@ const styles = StyleSheet.create({
     fontSize: 25,
   },
   Text : {
-    color: 'white',
+    color: 'black',
     marginStart: 10,
   }
 })

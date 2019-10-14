@@ -1,25 +1,40 @@
 import React from 'react';
 import { SafeAreaView, View, FlatList, StyleSheet, Image} from 'react-native';
-import { Button, Label, Content, Container, Icon, Right,Item, Input, Text } from 'native-base';
-import { createMaterialBottomTabNavigator } from 'react-navigation-material-bottom-tabs';
+import { Button, Label, Content, Container, Icon, Right,Item, Input, Text, Fab } from 'native-base';
 
 
 const DATA = [
-  'https://thumbor.forbes.com/thumbor/960x0/https%3A%2F%2Fblogs-images.forbes.com%2Frobsalkowitz%2Ffiles%2F2018%2F08%2FBACKCHANNEL_keyart-2-e1535581798442.jpg',
-  'https://swebtoon-phinf.pstatic.net/20190116_203/15476092508381Ywkd_JPEG/10_ipad.jpg',
-  'https://teknologi.id/wp-content/uploads/2018/12/gugSgYv-768x565.jpg',
-  'http://st.cdjapan.co.jp/pictures/l/08/09/2019CL-40.jpg?v=1',
+  {
+    url : 'https://teknologi.id/wp-content/uploads/2018/12/gugSgYv-768x565.jpg',
+    title : 'Dr.Stone',
+    jumlahEpisode : '4 Episode'
+  },
+  {
+    url : 'https://i.kym-cdn.com/entries/icons/original/000/030/978/demon-slayer-poster-1163650-1280x0.jpeg',
+    title : 'Kimetsu No Yaiba',
+    jumlahEpisode : '127 Episode'
+  },
+  {
+    url : 'https://electricbento.com/wp-content/uploads/2019/07/Attack-on-titan-2-final-battle-1.jpg',
+    title : 'Attack On Titan',
+    jumlahEpisode : '68 Episode'
+  },
+  {
+    url : 'https://occ-0-1068-92.1.nflxso.net/dnm/api/v6/0DW6CdE4gYtYx8iy3aj8gs9WtXE/AAAABf_Q6TuJMGayw1sOFrsEpAXK4TwRtwJjaQ5N1ovAn02CeyfJzoAyHtGu4Rx6NnH1jPb9LsGIwidYfbl2jgtqQG8jKq7i-fmd_Q.jpg?r=d7c',
+    title : 'One Punch Man',
+    jumlahEpisode : '157 Episode'
+  }
 ]
 
 function AddFav( title, x ) {
   return (
     <View> 
       <View style={styles.item}>
-        <Image source={{uri: title }}
-        style={{width: 40, height: 45, borderWidth:2, borderColor:'#f3f1ef'}} />
+        <Image source={{uri: title.url }}
+        style={{width: 40, height: 45}} />
         <View style={styles.list}>
-          <Text style={{fontWeight:'bold'}} onPress={() => x.navigate('DetailEdit')}>Judul Webtoon</Text>
-              <Text>30 Episode(s)</Text>
+          <Text style={{fontWeight:'bold'}} onPress={() => x.navigate('DetailEdit')}>{title.title}</Text>
+              <Text>{title.jumlahEpisode}</Text>
         </View>
       </View>
     </View>
@@ -28,27 +43,24 @@ function AddFav( title, x ) {
 
 class CreationScreen extends React.Component {
   render() {
+    console.disableYellowBox=true;
     return (
       <Container style={{backgroundColor:''}}>
-      <Content>
-        <View style={styles.content}>     
+      <Content>    
         <View style={styles.content}>
         </View>
 
-    <SafeAreaView>
-      <FlatList
-        data={DATA}
-        renderItem={({ item }) => AddFav(item , this.props.navigation)}
-        keyExtractor={item => item}
-      />
-    </SafeAreaView>
-        </View>
-        <View style={{alignItems:'center'}}>
-        <Button onPress={() => this.props.navigation.navigate('CreateWebtoon')} rounded style={{backgroundColor:'#f64747'}}>
-        <Icon name='add' style={{color:'white',}}></Icon>
-        </Button>
-        </View>
+      <SafeAreaView>
+        <FlatList
+          data={DATA}
+          renderItem={({ item }) => AddFav(item , this.props.navigation)}
+          keyExtractor={item => item}
+        />
+      </SafeAreaView>
         </Content>
+        <View>
+        <Fab onPress={() => this.props.navigation.navigate('CreateWebtoon')} position='bottomRight' style={{backgroundColor:'#f64747'}}><Icon name='add'/></Fab>
+        </View>
       </Container>
     );
   }

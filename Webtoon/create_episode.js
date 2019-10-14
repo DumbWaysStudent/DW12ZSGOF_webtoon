@@ -44,6 +44,7 @@ function Fav(title) {
 
 class DetailScreen extends React.Component {
   render() {
+    console.disableYellowBox=true;
     return (
       <Container style={{backgroundColor:''}}>
       <Content>

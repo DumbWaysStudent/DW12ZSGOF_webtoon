@@ -1,25 +1,46 @@
 import React from 'react';
-import { SafeAreaView, View, FlatList, StyleSheet, Image} from 'react-native';
+import { SafeAreaView, View, FlatList, StyleSheet, Image, TouchableOpacity} from 'react-native';
 import { Button, Label, Content, Container, Icon, Right,Item, Input, Text } from 'native-base';
 import { createMaterialBottomTabNavigator } from 'react-navigation-material-bottom-tabs';
 
 
 const DATA = [
-  'https://swebtoon-phinf.pstatic.net/20190116_203/15476092508381Ywkd_JPEG/10_ipad.jpg',
-  'https://teknologi.id/wp-content/uploads/2018/12/gugSgYv-768x565.jpg',
-  'http://st.cdjapan.co.jp/pictures/l/08/09/2019CL-40.jpg?v=1',
+  {
+    url : 'https://teknologi.id/wp-content/uploads/2018/12/gugSgYv-768x565.jpg',
+    title : 'Episode 1 : Stone World',
+    lastUpdate : '05 juli 2019'
+  },
+  {
+    url : 'https://teknologi.id/wp-content/uploads/2018/12/gugSgYv-768x565.jpg',
+    title : 'Episode 2 : King of the Stone World',
+    lastUpdate : '12 juli 2019'
+  },
+  {
+    url : 'https://teknologi.id/wp-content/uploads/2018/12/gugSgYv-768x565.jpg',
+    title : 'Episode 3 : Weapons of Science',
+    lastUpdate : '19 juli 2019'
+  },
+  {
+    url : 'https://teknologi.id/wp-content/uploads/2018/12/gugSgYv-768x565.jpg',
+    title : 'Episode 4 : Fire the Smoke Signal',
+    lastUpdate : '26 juli 2019'
+  }
 ]
 
 function AddFav( title, x ) {
     return (
       <View onPress={() => x.navigate('DetailEpisode')}> 
         <View onPress={() => x.navigate('DetailEpisode')} style={styles.item}>
-          <Image onPress={() => x.navigate('DetailEpisode')} source={{uri: title }}
-          style={{width: 75, height: 80, borderWidth:2, borderColor:'grey'}} />
-          <View style={styles.list}>
-            <Text onPress={() => x.navigate('DetailEpisode')} style={{marginTop:10}}>Ep.3</Text>
-            <Text onPress={() => x.navigate('DetailEpisode')} style={{marginTop:10}}>1 Januari 2019</Text>
-          </View>
+        <TouchableOpacity onPress={() => x.navigate('DetailEpisode', {
+              titleWebtoon: title.title,
+              otherParam: 'anything you want here',
+            })}>
+        <Image source={{uri: title.url }} style={styles.Image} />
+        </TouchableOpacity>
+        <View style={styles.list}>
+          <Text onPress={() => x.navigate('DetailEpisode')} style={styles.episodeTitle}>{title.title}</Text>
+          <Text onPress={() => x.navigate('DetailEpisode')} style={styles.episode}>{title.lastUpdate}</Text>
+        </View>
         </View>
       </View>
     );
@@ -41,8 +62,9 @@ function Fav(title) {
 
 class DetailScreen extends React.Component {
   render() {
+    console.disableYellowBox=true;
     return (
-      <Container style={{backgroundColor:''}}>
+      <Container>
       <Content>
         <View style={styles.content}>     
         <View style={styles.content}>
@@ -76,11 +98,11 @@ class DetailScreen extends React.Component {
 const styles = StyleSheet.create({
 
   item: {
-    backgroundColor: 'white',
-    padding: 10,
-    marginTop: 8,
+    padding: 4,
     marginHorizontal: 10,
-    flexDirection:'row'
+    flexDirection:'row',
+    borderBottomWidth:0.3,
+    borderBottomColor:'grey'
   },
   FavItem: {
     backgroundColor: 'white',
@@ -124,6 +146,21 @@ const styles = StyleSheet.create({
     borderRadius:10,
     backgroundColor:'#f64747',
     justifyContent:'center',
+  },
+  episode : {
+    marginTop:2,
+    color:'grey', 
+    fontSize:12
+  },
+  episodeTitle : {
+    marginTop:2, 
+    fontSize:15,
+    fontWeight:'bold'
+  },
+  Image : {
+    width: 40,
+     height: 45,
+     borderRadius:3 
   }
 });
 

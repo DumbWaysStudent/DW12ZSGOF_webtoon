@@ -53,7 +53,6 @@ const RootStack = createStackNavigator({
       headerStyle: {
         backgroundColor:'#f64747',
       },
-      headerTitle:<Text style={{ fontWeight:'bold', fontSize:18, color:'white' }}>Judul Webtoon</Text>,
       headerRight: <Icon onPress={onShare} light name='share' style={{margin:15, color:'white'}}/>,
       headerTintColor:'white'
     }
@@ -78,13 +77,12 @@ const RootStack = createStackNavigator({
   },
   DetailEpisode: {
     screen: DetailEpisodeScreen,
-      navigationOptions : {
-        headerStyle: {
-          backgroundColor:'#f64747',
-        },
-        headerTintColor:'white',
-        headerTitle: <Text style={{ fontWeight:'bold', fontSize:18, color:'white' }}>Episode 1</Text>,
-        headerRight: <Icon onPress={onShare} light name='share' style={{margin:15, color:'white'}}/>
+    navigationOptions : {
+      headerStyle: {
+        backgroundColor:'#f64747',
+      },
+      headerRight: <Icon onPress={onShare} light name='share' style={{margin:15, color:'white'}}/>,
+      headerTintColor:'white'
     }
   },
   ProfileScreen: {
@@ -100,14 +98,14 @@ const RootStack = createStackNavigator({
   },
   EditProfile: {
     screen: EditProfileScreen,
-      navigationOptions : {
-        headerStyle: {
-          backgroundColor:'#f64747',
-        },
-        headerTintColor:'white',
-        headerTitle: <Text style={{fontWeight:'bold', fontSize:18, color:'white' }}>Edit Profile</Text>,
-        headerRight: <Icon light name='checkmark' style={{margin:15, color:'white'}}/>
-    },
+    navigationOptions : {
+      headerStyle: {
+        backgroundColor:'#f64747',
+      },
+      headerTintColor:'white',
+      headerTitle: <Text style={{fontWeight:'bold', fontSize:18, color:'white' }}>Profile</Text>,
+      headerRight: <Icon onPress={() => this.props.navigation.navigate('EditProfile')} light name='create' style={{margin:15, color:'white'}}/>
+  },
   },
   MyCreation: {
     screen: MyCreationScreen,

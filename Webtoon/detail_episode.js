@@ -1,6 +1,7 @@
 import React from 'react';
 import { SafeAreaView, View, FlatList, StyleSheet, Image} from 'react-native';
 import { Button, Label, Content, Container, Icon, Right,Item, Input, Text } from 'native-base';
+import Detail from './detail_webtoon_screen';
 
 const DATA = [
   'https://thumbor.forbes.com/thumbor/960x0/https%3A%2F%2Fblogs-images.forbes.com%2Frobsalkowitz%2Ffiles%2F2018%2F08%2FBACKCHANNEL_keyart-2-e1535581798442.jpg',
@@ -20,9 +21,15 @@ function AddFav( title ) {
   );
 }
 
+class DetailEpisode extends React.Component {
 
+  static navigationOptions = ({ navigation }) => {
+    return {
+      title: navigation.getParam('titleWebtoon', 'No Title'),
+    };
+  };
 
-export default function app() {
+  render() {
   console.disableYellowBox=true;
   return (
     <Container style={{backgroundColor:''}}>
@@ -43,8 +50,9 @@ export default function app() {
     
     
   );
-
   }
+  
+}
 
 const styles = StyleSheet.create({
 
@@ -89,3 +97,4 @@ const styles = StyleSheet.create({
   }
 });
 
+export default DetailEpisode;

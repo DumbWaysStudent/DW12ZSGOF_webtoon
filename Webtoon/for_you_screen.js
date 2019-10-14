@@ -1,27 +1,46 @@
 import React from 'react';
-import { SafeAreaView, View, FlatList, StyleSheet, Image} from 'react-native';
-import { Button, Label, Content, Container, Icon, Right,Item, Input, Text } from 'native-base';
+import { SafeAreaView, View, FlatList, StyleSheet, Image, route, TouchableOpacity} from 'react-native';
+import { Button, Label, Content, Container, Icon, Right,Item, Input, Text, } from 'native-base';
 import Slideshow from 'react-native-image-slider-show';
 
 
 
+
 const DATA = [
-  'https://thumbor.forbes.com/thumbor/960x0/https%3A%2F%2Fblogs-images.forbes.com%2Frobsalkowitz%2Ffiles%2F2018%2F08%2FBACKCHANNEL_keyart-2-e1535581798442.jpg',
-  'https://swebtoon-phinf.pstatic.net/20190116_203/15476092508381Ywkd_JPEG/10_ipad.jpg',
-  'https://teknologi.id/wp-content/uploads/2018/12/gugSgYv-768x565.jpg',
-  'http://st.cdjapan.co.jp/pictures/l/08/09/2019CL-40.jpg?v=1',
+  {
+    url : 'https://teknologi.id/wp-content/uploads/2018/12/gugSgYv-768x565.jpg',
+    title : 'Dr.Stone',
+  },
+  {
+    url : 'https://i.kym-cdn.com/entries/icons/original/000/030/978/demon-slayer-poster-1163650-1280x0.jpeg',
+    title : 'Kimetsu No Yaiba',
+  },
+  {
+    url : 'https://electricbento.com/wp-content/uploads/2019/07/Attack-on-titan-2-final-battle-1.jpg',
+    title : 'Attack On Titan',
+  },
+  {
+    url : 'https://occ-0-1068-92.1.nflxso.net/dnm/api/v6/0DW6CdE4gYtYx8iy3aj8gs9WtXE/AAAABf_Q6TuJMGayw1sOFrsEpAXK4TwRtwJjaQ5N1ovAn02CeyfJzoAyHtGu4Rx6NnH1jPb9LsGIwidYfbl2jgtqQG8jKq7i-fmd_Q.jpg?r=d7c',
+    title : 'One Punch Man',
+  }
 ]
 
 function AddFav( title, x ) {
   return (
     <View> 
       <View style={styles.item}>
-        <Image source={{uri: title }}
-        style={{width: 75, height: 80, borderWidth:2, borderColor:'grey'}} />
+      <TouchableOpacity onPress={() => x.navigate('Detail', {
+              titleWebtoon: title.title,
+              urlWebtoon: title.url,
+              otherParam: 'anything you want here',
+            })}>
+        <Image source={{uri: title.url }}
+            style={{width: 75, height: 80, borderRadius:8}} />
+      </TouchableOpacity>
         <View style={styles.list}>
-          <Text onPress={() => x.navigate('Detail')}>Judul Webtoon</Text>
+          <Text style={{width:200, fontSize:14}} onPress={() => x.navigate('Detail')}>{title.title}</Text>
             <Button style={styles.favorite}>
-              <Text> + Favorite</Text>
+              <Text style={{fontSize:12}}> + Favorite</Text>
             </Button>
         </View>
       </View>
@@ -29,14 +48,20 @@ function AddFav( title, x ) {
   );
 }
 
-function Fav(title) {
+function Fav(title, x) {
   return (
     <View> 
       <View style={styles.FavItem}>
-        <Image source={{uri: title}}
-        style={{width: 100, height: 100, borderWidth:2, borderColor:'grey'}} />
+      <TouchableOpacity onPress={() => x.navigate('Detail', {
+              titleWebtoon: title.title,
+              urlWebtoon: title.url,
+              otherParam: 'anything you want here',
+            })}>
+        <Image source={{uri: title.url}}
+            style={{width: 150, height: 90, borderRadius:6}} />
+        </TouchableOpacity>
         <View style={styles.ListFav}>
-          <Text>Judul Webtoon</Text>
+          <Text style={{width:150, fontSize:14}} onPress={() => x.navigate('Detail')}>{title.title}</Text>
         </View>
       </View>
     </View>
@@ -53,13 +78,13 @@ class DetailScreen extends React.Component {
       interval: null,
       dataSource: [{
       title: '',
-      url: 'http://st.cdjapan.co.jp/pictures/l/08/09/2019CL-40.jpg?v=1'
+      url: 'https://akcdn.detik.net.id/visual/2019/05/28/f5bf410e-9c4d-43d7-8682-e964311ebd01_169.jpeg?w=900&q=90'
 }, {
       title: '',
-      url: 'https://swebtoon-phinf.pstatic.net/20190116_203/15476092508381Ywkd_JPEG/10_ipad.jpg'
+      url: 'https://www.inibaru.id/nuploads/46/virgo.jpg'
 }, {
       title: '',
-      url: 'https://teknologi.id/wp-content/uploads/2018/12/gugSgYv-768x565.jpg'
+      url: 'https://obs.line-scdn.net/0hrDZnnvgBLWtnFwZnDb1SPF1BLgRUez5oAyF8dTd5c18fIDk6XSY3XksUIQ9DJWo1CSVgCUsfNload2w0DyU3/w580'
 }],
     };
   }
@@ -80,42 +105,36 @@ class DetailScreen extends React.Component {
 
 
   render() {
+    console.disableYellowBox=true;
     return (
-      <Container style={{backgroundColor:''}}>
+      <Container>
       <Content>
-        <View style={styles.content}>     
-        <View style={styles.content}>
-          <View>
-            <Item rounded style={styles.input}>
-            <Input/>
-            <Right><Icon name='search' style={styles.icon}/></Right>
-            </Item>
-          </View>
-        </View>
-
-    <SafeAreaView>
-
-    <Slideshow 
+      <TouchableOpacity onPress={() => this.props.navigate('Detail')}>
+        <Slideshow
         dataSource={this.state.dataSource}
         position={this.state.position}
         onPositionChanged={position => this.setState({ position })} />
+      </TouchableOpacity>
 
-      <Label style={{marginStart:10, marginTop:10, fontWeight:'bold'}}>Favourite</Label>   
+
+    <SafeAreaView>
+      <View>
+      <Label style={{marginStart:10, marginTop:10, fontWeight:'bold'}}>Favourite</Label> 
+      </View>  
       <FlatList horizontal
         showsHorizontalScrollIndicator={false}
         data={DATA}
-        renderItem={({ item }) => Fav(item)}
+        renderItem={({ item }) => Fav(item, this.props.navigation)}
         keyExtractor={item => item}
       />
       
-      <Label style={{marginStart:20, fontWeight:'bold', marginTop:15}}>All</Label>
+      <Label style={{marginStart:10, fontWeight:'bold', marginTop:15}}>All</Label>
       <FlatList
         data={DATA}
         renderItem={({ item }) => AddFav(item , this.props.navigation)}
         keyExtractor={item => item}
       />
     </SafeAreaView>
-        </View>
         
         </Content>
       </Container>
@@ -129,11 +148,13 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     padding: 10,
     marginTop: 8,
-    marginHorizontal: 10,
+    marginHorizontal: 5,
     flexDirection:'row'
   },
+  imageFav: {
+    
+  },
   FavItem: {
-    backgroundColor: 'white',
     marginTop: 8,
     marginHorizontal:10
 
@@ -147,6 +168,7 @@ const styles = StyleSheet.create({
     borderRadius: 1,
     backgroundColor:'#f64747', 
     height:30, 
+    width:100,
     borderRadius:5
   },
   list: {
@@ -160,7 +182,7 @@ const styles = StyleSheet.create({
   },
   input: {
     height: 40,
-    marginBottom:15,
+    marginHorizontal:10,
     borderRadius:10,
     borderWidth:2,
     borderColor:'grey'

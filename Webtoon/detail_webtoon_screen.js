@@ -1,22 +1,21 @@
 import React from 'react';
-import { SafeAreaView, View, FlatList, StyleSheet,Dimensions, Image} from 'react-native';
+import { SafeAreaView, View, FlatList, StyleSheet,Dimensions, Image, TouchableOpacity} from 'react-native';
 import { Button, Label, Content, Container, Icon, Right,Item, Input, Text, Header } from 'native-base';
 
-const DATA = [
-  'https://swebtoon-phinf.pstatic.net/20190116_203/15476092508381Ywkd_JPEG/10_ipad.jpg',
-  'https://teknologi.id/wp-content/uploads/2018/12/gugSgYv-768x565.jpg',
-  'http://st.cdjapan.co.jp/pictures/l/08/09/2019CL-40.jpg?v=1',  
-]
 
 function AddFav( title, x ) {
   return (
     <View onPress={() => x.navigate('DetailEpisode')}> 
       <View onPress={() => x.navigate('DetailEpisode')} style={styles.item}>
-        <Image onPress={() => x.navigate('DetailEpisode')} source={{uri: title }}
-        style={{width: 40, height: 45, borderWidth:2, borderColor:'grey'}} />
+      <TouchableOpacity onPress={() => x.navigate('DetailEpisode', {
+              titleWebtoon: title.title,
+              otherParam: 'anything you want here',
+            })}>
+        <Image source={{uri: title.url }} style={styles.Image} />
+        </TouchableOpacity>
         <View style={styles.list}>
-          <Text onPress={() => x.navigate('DetailEpisode')}>Ep.3</Text>
-          <Text onPress={() => x.navigate('DetailEpisode')}>1 Januari 2019</Text>
+          <Text onPress={() => x.navigate('DetailEpisode')} style={styles.episodeTitle}>{title.title}</Text>
+          <Text onPress={() => x.navigate('DetailEpisode')} style={styles.episode}>{title.lastUpdate}</Text>
         </View>
       </View>
     </View>
@@ -26,33 +25,61 @@ function AddFav( title, x ) {
 
 class Detail extends React.Component {
 
+  static navigationOptions = ({ navigation }) => {
+    return {
+      title: navigation.getParam('titleWebtoon', 'No Title'),
+    };
+  };
+
   render() {
+    console.disableYellowBox=true;
+    const { navigation } = this.props;
+    const urlWebtoon = navigation.getParam('urlWebtoon', 'NO-ID');
+
+    const DATA = [
+      {
+        url : urlWebtoon,
+        title : 'Episode 1 : Stone World',
+        lastUpdate : '05 juli 2019'
+      },
+      {
+        url : urlWebtoon,
+        title : 'Episode 2 : King of the Stone World',
+        lastUpdate : '12 juli 2019'
+      },
+      {
+        url : urlWebtoon,
+        title : 'Episode 3 : Weapons of Science',
+        lastUpdate : '19 juli 2019'
+      },
+      {
+        url : urlWebtoon,
+        title : 'Episode 4 : Fire the Smoke Signal',
+        lastUpdate : '26 juli 2019'
+      }
+    ]
+
+
 
   console.disableYellowBox=true;
   return (
     <Container style={{backgroundColor:''}}>
-      
       <Content>
-
-        <View>
-        <Image source={{uri :'https://teknologi.id/wp-content/uploads/2018/12/gugSgYv-768x565.jpg'}} 
+        <View style={{borderRadius:50}}>
+        <Image source={{uri: urlWebtoon}}
         style={styles.detail}/>
         </View>
-
         <View style={styles.content}>
 
-          
-
-    <SafeAreaView>  
+    <SafeAreaView>
+      <Label style={{marginStart:15, fontWeight:'bold', marginBottom:10}}>4 Episode</Label>  
       <FlatList
-      
         data={DATA}
         renderItem={({ item }) => AddFav(item , this.props.navigation)}
         keyExtractor={item => item}
       />
     </SafeAreaView>
-        </View>
-        
+        </View>    
         </Content>
       </Container>
     
@@ -65,11 +92,11 @@ class Detail extends React.Component {
 const styles = StyleSheet.create({
 
   item: {
-    backgroundColor: 'white',
-    padding: 10,
-    marginTop: 8,
+    padding: 4,
     marginHorizontal: 10,
-    flexDirection:'row'
+    flexDirection:'row',
+    borderBottomWidth:0.3,
+    borderBottomColor:'grey'
   },
   FavItem: {
     backgroundColor: 'white',
@@ -92,9 +119,11 @@ const styles = StyleSheet.create({
   },
   ListFav: {
     textAlign:'center'
-  },content: {
+  },
+  content: {
     flex : 1,
-    margin:10
+    margin:10,
+    marginTop: 30
   },
   input: {
     height: 40,
@@ -115,6 +144,21 @@ const styles = StyleSheet.create({
     height: 200,
     borderWidth:2,
   },
+  episode : {
+    marginTop:2,
+    color:'grey', 
+    fontSize:13
+  },
+  Image : {
+    width: 40,
+     height: 45,
+     borderRadius:3 
+  },
+  episodeTitle : {
+    marginTop:2, 
+    fontSize:15,
+    fontWeight:'bold'
+  }
 });
 
 export default Detail;
