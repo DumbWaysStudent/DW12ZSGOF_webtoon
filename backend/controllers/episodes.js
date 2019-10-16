@@ -9,10 +9,6 @@ exports.show = (req, res) => {
     Episode.findAll({where:{Webtoon_id: req.params.id}}).then(result=> res.send(result))
 }
 
-exports.search = (req, res) => {
-    Episode.findAll({where:{title: req.params.id}}).then(result=> res.send(result))
-}
-
 exports.store = (req, res) => {
     Episode.create(req.body).then(webtoon=> {
         res.send({

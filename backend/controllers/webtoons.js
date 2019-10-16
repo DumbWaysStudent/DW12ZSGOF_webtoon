@@ -10,7 +10,11 @@ exports.show = (req, res) => {
 }
 
 exports.search = (req, res) => {
-    Webtoon.findAll({where:{title: req.params.id}}).then(result=> res.send(result))
+    Webtoon.findAll({where:{title: req.params.title}}).then(result=> res.send(result))
+}
+
+exports.favorite = (req, res) => {
+    Webtoon.findAll({where:{isFavorite: req.params.fav}}).then(result=> res.send(result))
 }
 
 exports.store = (req, res) => {
