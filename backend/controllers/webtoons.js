@@ -1,12 +1,18 @@
 const models = require('../models')
 const Webtoon = models.webtoon
 
+
 exports.index = (req, res) => {
+   let title = req.query.title
    let favorite = req.query.is_favorite
    if (favorite == 'true') {
        favorite = 1
         Webtoon.findAll({where:{isFavorite:favorite}}).then(result=> res.send(result))
-   } else {
+   } 
+   else if (title != null) {
+        Webtoon.findAll({where:{title: title}}).then(result=> res.send(result))
+   }
+   else {
        Webtoon.findAll().then(result=>res.send(result))
    }
 }
