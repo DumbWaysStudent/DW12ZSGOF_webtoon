@@ -41,6 +41,8 @@ app.group("/api/v1", (router) => {
 
     //Creation API
     router.get('/user/:id/webtoons', authenticated, WebtoonController.show)
+    router.post('/user/:id/webtoon', authenticated, WebtoonController.store)
+    router.get('webtoon/:webtoon_id/episodes', authenticated,  EpisodeController.showepisode)
     
 })
 
