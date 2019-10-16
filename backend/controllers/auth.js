@@ -21,7 +21,16 @@ exports.login = (req, res)=>{
                 message: "Wrong Email or Password!"
             })
         }
-    })
+    })  
+}
 
-    
+exports.register = (req, res) => {
+    const token = jwt.sign( 'sshhshhhhh' , 'my-secret-key')
+    User.create(req.body).then(user=> {
+        res.send({
+            message: "success",
+            user,
+            token
+        })
+    })
 }
