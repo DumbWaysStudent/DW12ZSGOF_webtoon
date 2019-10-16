@@ -1,7 +1,6 @@
 const models = require('../models')
 const Webtoon = models.webtoon
 
-
 exports.index = (req, res) => {
    let title = req.query.title
    let favorite = req.query.is_favorite
@@ -18,11 +17,7 @@ exports.index = (req, res) => {
 }
 
 exports.show = (req, res) => {
-    Webtoon.findAll({where:{id: req.params.id}}).then(result=> res.send(result))
-}
-
-exports.search = (req, res) => {
-    Webtoon.findAll({where:{title: req.params.title}}).then(result=> res.send(result))
+    Webtoon.findAll({where:{created_by: req.params.id}}).then(result=> res.send(result))
 }
 
 exports.store = (req, res) => {

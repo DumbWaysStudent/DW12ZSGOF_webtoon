@@ -38,6 +38,9 @@ app.group("/api/v1", (router) => {
     //Detail Episode API
     router.get('/webtoon/:id_webtoon/episode/:id_episode', DetailEpisodeController.show)
     router.get('/detailepisodes', DetailEpisodeController.index)
+
+    //Creation API
+    router.get('/user/:id/webtoons', authenticated, WebtoonController.show)
     
 })
 
