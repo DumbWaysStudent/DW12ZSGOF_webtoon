@@ -14,7 +14,6 @@ exports.detailEpisode = (req, res) => {
 }
 
 
-
 exports.store = (req, res) => {
     Episode.create(req.body).then(webtoon=> {
         res.send({
