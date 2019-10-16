@@ -1,20 +1,20 @@
 const models = require('../models')
-const Webtoon = models.webtoon
+const Episode = models.episode
 
 exports.index = (req, res) => {
-    Webtoon.findAll().then(result=>res.send(result))
+    Episode.findAll().then(result=>res.send(result))
 }
 
 exports.show = (req, res) => {
-    Webtoon.findAll({where:{id: req.params.id}}).then(result=> res.send(result))
+    Episode.findAll({where:{Webtoon_id: req.params.id}}).then(result=> res.send(result))
 }
 
 exports.search = (req, res) => {
-    Webtoon.findAll({where:{title: req.params.id}}).then(result=> res.send(result))
+    Episode.findAll({where:{title: req.params.id}}).then(result=> res.send(result))
 }
 
 exports.store = (req, res) => {
-    Webtoon.create(req.body).then(webtoon=> {
+    Episode.create(req.body).then(webtoon=> {
         res.send({
             message: "success",
             webtoon
@@ -23,7 +23,7 @@ exports.store = (req, res) => {
 }
 
 exports.update = (req, res) => {
-    Webtoon.update(
+    Episode.update(
         req.body,
         {where: {id: req.params.id}}
     ).then(webtoon=> {
@@ -35,7 +35,7 @@ exports.update = (req, res) => {
 }
 
 exports.delete = (req, res) => {
-    Webtoon.destroy({where: {id: req.params.id}}).then(webtoon=> {
+    Episode.destroy({where: {id: req.params.id}}).then(webtoon=> {
         res.send({
             message: "success",
             webtoon

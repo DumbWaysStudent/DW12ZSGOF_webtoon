@@ -10,6 +10,7 @@ app.use(bodyParser.json())
 //controllers
 const AuthController = require('./controllers/auth')
 const WebtoonController = require('./controllers/webtoons')
+const EpisodeController = require('./controllers/episodes')
 
 //middlewares
 const { authenticated } = require('./middleware')
@@ -26,7 +27,10 @@ app.group("/api/v1", (router) => {
     router.patch('/webtoon/:id', WebtoonController.update)    
     router.delete('/webtoon/:id', WebtoonController.delete)
 
-    //another APIs goes here
+    //Episode API
+    router.get('/episodes', EpisodeController.index)
+    router.get('/webtoon/:id/episodes', EpisodeController.show)
+    
 })
 
 
