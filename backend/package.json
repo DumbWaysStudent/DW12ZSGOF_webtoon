@@ -9,15 +9,15 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/danielanto109/sequelize-starter.git"
+    "url": "https://github.com/DumbWaysStudent/DW12ZSGOF_webtoon"
   },
   "keywords": [],
-  "author": "danielanto109",
+  "author": "Khairunnas",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/danielanto109/sequelize-starter/issues"
+    "url": ""
   },
-  "homepage": "https://github.com/danielanto109/sequelize-starter#readme",
+  "homepage": "",
   "dependencies": {
     "body-parser": "^1.19.0",
     "express": "^4.17.1",
