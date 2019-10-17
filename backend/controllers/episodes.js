@@ -66,10 +66,8 @@ exports.editEpisode = (req, res) => {
  })
 }
 
-
-
-exports.delete = (req, res) => {
-    Episode.destroy({where: {id: req.params.id}}).then(webtoon=> {
+exports.deleteEpisode = (req, res) => {
+    Episode.destroy({where: {user_id: req.params.user_id, webtoon_id: req.params.webtoon_id, id: req.params.episode_id}}).then(webtoon=> {
         res.send({
             message: "success",
             webtoon
