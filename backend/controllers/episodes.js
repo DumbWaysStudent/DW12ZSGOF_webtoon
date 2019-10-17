@@ -50,6 +50,24 @@ exports.createEpisode = (req, res) => {
     })
 }
 
+exports.editEpisode = (req, res) => {
+    const user_id = req.params.user_id
+    const webtoon_id = req.params.webtoon_id
+    const id = req.params.id
+    Episode.update(req.body,{
+     where: {
+         user_id: user_id, webtoon_id: webtoon_id, id:id
+     }
+ }).then(webtoon=> {
+     res.send({
+         message: "success",
+         data : req.body
+     })
+ })
+}
+
+
+
 exports.delete = (req, res) => {
     Episode.destroy({where: {id: req.params.id}}).then(webtoon=> {
         res.send({

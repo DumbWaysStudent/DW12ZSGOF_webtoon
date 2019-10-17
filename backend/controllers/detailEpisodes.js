@@ -13,6 +13,10 @@ exports.image = (req, res) => {
     detailEpisode.findAll({where:{user_id: req.params.user_id, webtoon_id: req.params.webtoon_id, episode_id: req.params.episode_id }}).then(result=> res.send(result))
 }
 
+exports.getImages = (req, res) => {
+    detailEpisode.findAll({where:{user_id: req.params.user_id, webtoon_id: req.params.webtoon_id, episode_id: req.params.episode_id }}).then(result=> res.send(result))
+}
+
 exports.store = (req, res) => {
     Episode.create(req.body).then(webtoon=> {
         res.send({
