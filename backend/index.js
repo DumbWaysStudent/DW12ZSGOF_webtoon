@@ -24,8 +24,7 @@ app.group("/api/v1", (router) => {
 
     //webtoon API
     router.get('/webtoons', authenticated, WebtoonController.index)  
-    router.get('/webtoon/:id', WebtoonController.show)    
-    router.post('/webtoon', WebtoonController.store)    
+    router.get('/webtoon/:id', WebtoonController.show)     
     router.patch('/webtoon/:id', WebtoonController.update)    
     router.delete('/webtoon/:id', WebtoonController.delete)
 
@@ -42,8 +41,8 @@ app.group("/api/v1", (router) => {
     //Creation API
     router.get('/user/:id/webtoons', authenticated, WebtoonController.show)
     router.post('/user/:id/webtoon', authenticated, WebtoonController.store)
-    router.get('webtoon/:webtoon_id/episodes', authenticated,  EpisodeController.showepisode)
-    
+    router.get('/webtoon/:webtoon_id/episodes', authenticated, EpisodeController.showepisode)
+    router.get('/user/:user_id/webtoon/:webtoon_id/episodes',authenticated, EpisodeController.showcreation)
 })
 
 

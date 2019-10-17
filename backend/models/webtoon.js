@@ -4,7 +4,8 @@ module.exports = (sequelize, DataTypes) => {
     title: DataTypes.STRING,
     genre: DataTypes.STRING,
     isFavorite: DataTypes.BOOLEAN,
-    image: DataTypes.STRING
+    image: DataTypes.STRING,
+    created_by: DataTypes.INTEGER
   }, {});
   webtoon.associate = function(models) {
     // associations can be defined here

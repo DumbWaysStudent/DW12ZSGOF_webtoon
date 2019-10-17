@@ -14,7 +14,11 @@ exports.showepisode = (req, res) => {
 }
 
 exports.detailEpisode = (req, res) => {
-    Episode.findAll({where:{Webtoon_id: req.params.id}}).then(result=> res.send(result))
+    Episode.findAll({where:{Webtoon_id: req.params.webtoon_id}}).then(result=> res.send(result))
+}
+
+exports.showcreation = (req, res) => {
+    Episode.findAll({where:{user_id: req.params.user_id, webtoon_id: req.params.webtoon_id }}).then(result=> res.send(result))
 }
 
 
