@@ -43,6 +43,7 @@ app.group("/api/v1", (router) => {
     router.post('/user/:id/webtoon', authenticated, WebtoonController.store)
     router.get('/webtoon/:webtoon_id/episodes', authenticated, EpisodeController.showepisode)
     router.get('/user/:user_id/webtoon/:webtoon_id/episodes',authenticated, EpisodeController.showcreation)
+    router.put('/user/:user_id/webtoon/:webtoon_id',authenticated, WebtoonController.update)
 })
 
 

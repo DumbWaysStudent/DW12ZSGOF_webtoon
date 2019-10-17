@@ -32,11 +32,11 @@ exports.store = (req, res) => {
 exports.update = (req, res) => {
     Webtoon.update(
         req.body,
-        {where: {id: req.params.id}}
+        {where: {created_by: req.params.user_id, id: req.params.webtoon_id}}
     ).then(webtoon=> {
         res.send({
             message: "success",
-            webtoon
+            data : req.body
         })
     })
 }
