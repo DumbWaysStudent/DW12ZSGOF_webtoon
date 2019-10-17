@@ -17,13 +17,22 @@ exports.getImages = (req, res) => {
     detailEpisode.findAll({where:{user_id: req.params.user_id, webtoon_id: req.params.webtoon_id, episode_id: req.params.episode_id }}).then(result=> res.send(result))
 }
 
-exports.store = (req, res) => {
-    Episode.create(req.body).then(webtoon=> {
-        res.send({
-            message: "success",
-            webtoon
-        })
-    })
+exports.createMyEpisode = (req, res) => {
+    const user_id = req.params.user_id
+    const webtoon_id = req.params.webtoon_id
+    const episode_id = req.params.episode_id
+    const {page,image} = req.body
+ detailEpisode.create({
+    page : page,
+    image : image,
+    webtoon_id : webtoon_id,
+    episode_id: episode_id,
+    user_id : user_id,
+ }).then(image=> {
+     res.send({
+         image
+     })
+ })
 }
 
 exports.update = (req, res) => {

@@ -50,6 +50,7 @@ app.group("/api/v1", (router) => {
     router.put('/user/:user_id/webtoon/:webtoon_id/episode/:id', authenticated, EpisodeController.editEpisode)
     router.get('/user/:user_id/webtoon/:webtoon_id/episode/:episode_id/images', authenticated, DetailEpisodeController.getImages)
     router.delete('/user/:user_id/webtoon/:webtoon_id/episode/:episode_id', authenticated, EpisodeController.deleteEpisode)
+    router.post('/user/:user_id/webtoon/:webtoon_id/episode/:episode_id/image', authenticated, DetailEpisodeController.createMyEpisode)
 })
 
 
