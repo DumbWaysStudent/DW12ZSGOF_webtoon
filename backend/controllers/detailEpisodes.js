@@ -1,5 +1,5 @@
 const models = require('../models')
-const detailEpisode = models.detail_episode
+const detailEpisode = models.image
 
 exports.index = (req, res) => {
     detailEpisode.findAll().then(result=>res.send(result))
@@ -7,6 +7,10 @@ exports.index = (req, res) => {
 
 exports.show = (req, res) => {
     detailEpisode.findAll({where:{webtoon_id: req.params.id_webtoon, episode_id: req.params.id_episode }}).then(result=> res.send(result))
+}
+
+exports.image = (req, res) => {
+    detailEpisode.findAll({where:{user_id: req.params.user_id, webtoon_id: req.params.webtoon_id, episode_id: req.params.episode_id }}).then(result=> res.send(result))
 }
 
 exports.store = (req, res) => {

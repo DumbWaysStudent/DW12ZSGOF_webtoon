@@ -17,6 +17,7 @@ exports.detailEpisode = (req, res) => {
     Episode.findAll({where:{Webtoon_id: req.params.webtoon_id}}).then(result=> res.send(result))
 }
 
+
 exports.showcreation = (req, res) => {
     Episode.findAll({where:{user_id: req.params.user_id, webtoon_id: req.params.webtoon_id }}).then(result=> res.send(result))
 }
@@ -31,14 +32,20 @@ exports.store = (req, res) => {
     })
 }
 
-exports.update = (req, res) => {
-    Episode.update(
-        req.body,
-        {where: {id: req.params.id}}
-    ).then(webtoon=> {
+exports.createEpisode = (req, res) => {
+       const user_id = req.params.user_id
+       const webtoon_id = req.params.webtoon_id
+       const {title,image} = req.body
+    Episode.create({
+       title : title,
+       image : image,
+       webtoon_id : webtoon_id,
+       user_id : user_id
+    }).then(episode=> {
         res.send({
-            message: "success",
-            webtoon
+            webtoon_id : episode.webtoon_id,
+            title: episode.title,
+            image : episode.image,
         })
     })
 }
