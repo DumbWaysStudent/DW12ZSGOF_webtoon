@@ -44,6 +44,7 @@ app.group("/api/v1", (router) => {
     router.get('/webtoon/:webtoon_id/episodes', authenticated, EpisodeController.showepisode)
     router.get('/user/:user_id/webtoon/:webtoon_id/episodes',authenticated, EpisodeController.showcreation)
     router.put('/user/:user_id/webtoon/:webtoon_id',authenticated, WebtoonController.update)
+    router.delete('/user/:user_id/webtoon/:webtoon_id',authenticated, WebtoonController.delete)
 })
 
 

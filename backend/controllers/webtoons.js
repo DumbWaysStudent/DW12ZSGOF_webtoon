@@ -42,7 +42,7 @@ exports.update = (req, res) => {
 }
 
 exports.delete = (req, res) => {
-    Webtoon.destroy({where: {id: req.params.id}}).then(webtoon=> {
+    Webtoon.destroy({where: {created_by: req.params.user_id, id: req.params.webtoon_id}}).then(webtoon=> {
         res.send({
             message: "success",
             webtoon
