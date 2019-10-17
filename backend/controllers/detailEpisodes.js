@@ -35,23 +35,18 @@ exports.createMyEpisode = (req, res) => {
  })
 }
 
-exports.update = (req, res) => {
-    Episode.update(
-        req.body,
-        {where: {id: req.params.id}}
-    ).then(webtoon=> {
-        res.send({
-            message: "success",
-            webtoon
-        })
-    })
-}
 
-exports.delete = (req, res) => {
-    Episode.destroy({where: {id: req.params.id}}).then(webtoon=> {
+exports.deleteImage = (req, res) => {
+    detailEpisode.destroy({
+        where: {
+            user_id: req.params.user_id,
+            webtoon_id: req.params.webtoon_id,
+            episode_id: req.params.episode_id,
+            id: req.params.image_id
+        }}).then(image=> {
         res.send({
             message: "success",
-            webtoon
+            image
         })
     })
 }
