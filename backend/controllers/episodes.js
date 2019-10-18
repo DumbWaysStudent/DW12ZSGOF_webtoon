@@ -10,7 +10,15 @@ exports.show = (req, res) => {
 }
 
 exports.showepisode = (req, res) => {
-    Episode.findAll({where:{Webtoon_id: req.params.id}}).then(result=> res.send(result))
+    Episode.findAll({
+        where:{
+            Webtoon_id: req.params.id
+        }
+    }).then(webtoon=> res.send({
+        title : webtoon.title,
+        title: webtoon.image
+    })
+    )
 }
 
 exports.detailEpisode = (req, res) => {
