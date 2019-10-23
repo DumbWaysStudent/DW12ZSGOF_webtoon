@@ -1,11 +1,10 @@
 import React from 'react';
-import { SafeAreaView, View, FlatList, StyleSheet, Image} from 'react-native';
+import {View} from 'react-native';
 import {Icon} from 'native-base';
 import { createMaterialBottomTabNavigator } from 'react-navigation-material-bottom-tabs';
 import  ForYouScreen from './for_you_screen';
 import  MyFavouriteScreen from './my_favourite_episode';
 import  ProfileScreen from './profile_screen';
-
 
 
 export default createMaterialBottomTabNavigator(
@@ -17,7 +16,7 @@ export default createMaterialBottomTabNavigator(
           tabBarIcon: ({ tintColor }) => (  
               <View>  
                   <Icon style={[{color: tintColor}]} size={25} name={'ios-home'}/>  
-              </View>),  
+              </View>) 
         }  
       },
       MyFavouriteScreen : {
@@ -27,7 +26,7 @@ export default createMaterialBottomTabNavigator(
           tabBarIcon: ({ tintColor }) => (  
               <View>  
                   <Icon style={[{color: tintColor}]} size={25} name={'star'}/>  
-              </View>),  
+              </View>) 
         }  
       },
       ProfileScreen: { 
@@ -37,7 +36,7 @@ export default createMaterialBottomTabNavigator(
           tabBarIcon: ({ tintColor }) => (  
               <View>  
                   <Icon style={[{color: tintColor}]} size={25} name={'person'}/>  
-              </View>),  
+              </View>) 
         }  
       }
     },

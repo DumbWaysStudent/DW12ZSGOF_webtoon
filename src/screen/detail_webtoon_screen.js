@@ -1,7 +1,8 @@
 import React from 'react';
 import { SafeAreaView, View, FlatList, StyleSheet,Dimensions, Image, TouchableOpacity} from 'react-native';
 import { Button, Label, Content, Container, Icon, Right,Item, Input, Text, Header } from 'native-base';
-
+import * as actionWebtoons from '../redux/actions/actionWebtoon'
+import { connect } from 'react-redux'
 
 function AddFav( title, x ) {
   return (
@@ -30,6 +31,10 @@ class Detail extends React.Component {
       title: navigation.getParam('titleWebtoon', 'No Title'),
     };
   };
+
+  async componentDidMount(){
+    await this.props.handleGetWebtoons()
+     }
 
   render() {
     console.disableYellowBox=true;
@@ -161,4 +166,19 @@ const styles = StyleSheet.create({
   }
 });
 
-export default Detail;
+const mapStateToProps = state => {
+  return {
+    webtoonsLocal: state.webtoons,
+  }
+}
+
+const mapDispatchToProps = dispatch => {
+  return {
+    handleGetWebtoons:()=> dispatch(actionWebtoons.handleGetWebtoons())
+  }
+}
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Detail);

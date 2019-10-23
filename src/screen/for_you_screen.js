@@ -2,6 +2,8 @@ import React from 'react';
 import { SafeAreaView, View, FlatList, StyleSheet, Image, route, TouchableOpacity} from 'react-native';
 import { Button, Label, Content, Container, Icon, Right,Item, Input, Text, } from 'native-base';
 import Slideshow from 'react-native-image-slider-show';
+import * as actionWebtoons from '../redux/actions/actionWebtoon'
+import { connect } from 'react-redux'
 
 
 
@@ -31,10 +33,10 @@ function AddFav( title, x ) {
       <View style={styles.item}>
       <TouchableOpacity onPress={() => x.navigate('Detail', {
               titleWebtoon: title.title,
-              urlWebtoon: title.url,
+              urlWebtoon: title.image,
               otherParam: 'anything you want here',
             })}>
-        <Image source={{uri: title.url }}
+        <Image source={{uri: title.image }}
             style={{width: 75, height: 80, borderRadius:8}} />
       </TouchableOpacity>
         <View style={styles.list}>
@@ -54,10 +56,10 @@ function Fav(title, x) {
       <View style={styles.FavItem}>
       <TouchableOpacity onPress={() => x.navigate('Detail', {
               titleWebtoon: title.title,
-              urlWebtoon: title.url,
+              urlWebtoon: title.image,
               otherParam: 'anything you want here',
             })}>
-        <Image source={{uri: title.url}}
+        <Image source={{uri: title.image}}
             style={{width: 150, height: 90, borderRadius:6}} />
         </TouchableOpacity>
         <View style={styles.ListFav}>
@@ -68,7 +70,7 @@ function Fav(title, x) {
   ); 
 }
 
-class DetailScreen extends React.Component {
+class ForYou extends React.Component {
 
   constructor(props) {
     super(props);
@@ -99,19 +101,24 @@ class DetailScreen extends React.Component {
     });
   }
  
-  componentWillUnmount() {
-    clearInterval(this.state.interval);
+ async componentDidMount(){
+ await this.props.handleGetWebtoons()
+  }
+  
+componentWillUnmount() {
+  clearInterval(this.state.interval);
   }
 
 
   render() {
+    const webtoons=this.props.webtoonsLocal.webtoons
     console.disableYellowBox=true;
     return (
       <Container>
       <Content>
-      <TouchableOpacity onPress={() => this.props.navigate('Detail')}>
+      <TouchableOpacity onPress={() => this.props.navigation.navigate('Detail')}>
         <Slideshow
-        dataSource={this.state.dataSource}
+        dataSource={webtoons}
         position={this.state.position}
         onPositionChanged={position => this.setState({ position })} />
       </TouchableOpacity>
@@ -119,18 +126,18 @@ class DetailScreen extends React.Component {
 
     <SafeAreaView>
       <View>
-      <Label style={{marginStart:10, marginTop:10, fontWeight:'bold'}}>Favourite</Label> 
+      <Label style={{marginStart:10, marginTop:10, fontWeight:'bold'}}>Favorite</Label> 
       </View>  
       <FlatList horizontal
         showsHorizontalScrollIndicator={false}
-        data={DATA}
+        data={webtoons}
         renderItem={({ item }) => Fav(item, this.props.navigation)}
         keyExtractor={item => item}
       />
       
       <Label style={{marginStart:10, fontWeight:'bold', marginTop:15}}>All</Label>
       <FlatList
-        data={DATA}
+        data={webtoons}
         renderItem={({ item }) => AddFav(item , this.props.navigation)}
         keyExtractor={item => item}
       />
@@ -193,5 +200,20 @@ const styles = StyleSheet.create({
   }
 });
 
-export default DetailScreen;
+const mapStateToProps = state => {
+  return {
+    webtoonsLocal: state.webtoons,
+  }
+}
+
+const mapDispatchToProps = dispatch => {
+  return {
+    handleGetWebtoons:()=> dispatch(actionWebtoons.handleGetWebtoons())
+  }
+}
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(ForYou);
 
